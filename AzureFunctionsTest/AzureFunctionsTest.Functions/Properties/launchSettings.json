@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AzureFunctionsTest_Functions": {
+      "commandName": "Project",
+      "launchBrowser": false
+    }
+  }
+}
