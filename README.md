@@ -4,6 +4,12 @@ This project demonstrates the Aspire and Azure Functions integration.
 
 ## Running the project
 
+This project requires the .NET 8.0.401 SDK and the Aspire workload.
+
+```
+dotnet workload install aspire
+```
+
 To run this project, launch the AppHost project.
 
 ```
@@ -41,7 +47,20 @@ To replicate this setup on existing Azure Functions projects, a few modification
 }
 ```
 
-3. The Azure Functions host executes an inner build when `func start` is invoked that facilitates the discovery of triggers and extensions used by the worker and wiring them up to the host. Currently, a bug in the Azure Functions Core Tools makes this inner build fail in scenarios where the Functions project has already been built (see [this issue in the Azure Functions Core Tools repo](https://github.com/Azure/azure-functions-core-tools/issues/3594)).
+3. Configure the `RunCommand` properties in the project file of the Functions project to support launching the local Azure Functions host as part of the launch step for the .NET project.
+
+```xml
+<PropertyGroup>
+  <RunCommand>func</RunCommand>
+  <RunArguments>start --csharp</RunArguments>
+</PropertyGroup>
+```
+
+4. The Azure Functions host executes an inner build when `func start` is invoked that facilitates the discovery of triggers and extensions used by the worker and wiring them up to the host. Currently, a bug in the Azure Functions Core Tools makes this inner build fail in scenarios where the Functions project has already been built (see [this issue in the Azure Functions Core Tools repo](https://github.com/Azure/azure-functions-core-tools/issues/3594)).
+
+```
+Can't determine Project to build. Expected 1 .csproj or .fsproj but found 2
+```
 
 This bug especially impacts the Azure Functions integration because the referenced Functions project is built twice:
 
