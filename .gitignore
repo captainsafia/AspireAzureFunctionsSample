@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Local .dotnet install directory
+.dotnet
+
+# Remapped WorkerExtensions directory
+WorkerExtensions/
