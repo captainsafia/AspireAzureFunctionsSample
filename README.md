@@ -47,6 +47,10 @@ To replicate this setup on existing Azure Functions projects, a few modification
 }
 ```
 
+3. The Azure Functions .NET APIs do not currently support the `IHostApplicationBuilder` interface that Aspire's APIs depend on. For the case of ServiceDefaults APIs, it's necessary to define `IHostBuilder`-based implementations of these APIs as seen in [this file](./AzureFunctionsTest//AzureFunctionsTest.ServiceDefaults/HostBuilderExtensions.cs).
+
+Note: OpenTelemetry from the local Functions host is not currently supported.
+
 3. Configure the `RunCommand` properties in the project file of the Functions project to support launching the local Azure Functions host as part of the launch step for the .NET project.
 
 ```xml
