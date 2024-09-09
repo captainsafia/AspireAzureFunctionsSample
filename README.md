@@ -51,7 +51,7 @@ To replicate this setup on existing Azure Functions projects, a few modification
 
 Note: OpenTelemetry from the local Functions host is not currently supported.
 
-3. Configure the `RunCommand` properties in the project file of the Functions project to support launching the local Azure Functions host as part of the launch step for the .NET project.
+4. Configure the `RunCommand` properties in the project file of the Functions project to support launching the local Azure Functions host as part of the launch step for the .NET project.
 
 ```xml
 <PropertyGroup>
@@ -60,7 +60,7 @@ Note: OpenTelemetry from the local Functions host is not currently supported.
 </PropertyGroup>
 ```
 
-4. The Azure Functions host executes an inner build when `func start` is invoked that facilitates the discovery of triggers and extensions used by the worker and wiring them up to the host. Currently, a bug in the Azure Functions Core Tools makes this inner build fail in scenarios where the Functions project has already been built (see [this issue in the Azure Functions Core Tools repo](https://github.com/Azure/azure-functions-core-tools/issues/3594)).
+5. The Azure Functions host executes an inner build when `func start` is invoked that facilitates the discovery of triggers and extensions used by the worker and wiring them up to the host. Currently, a bug in the Azure Functions Core Tools makes this inner build fail in scenarios where the Functions project has already been built (see [this issue in the Azure Functions Core Tools repo](https://github.com/Azure/azure-functions-core-tools/issues/3594)).
 
 ```
 Can't determine Project to build. Expected 1 .csproj or .fsproj but found 2
@@ -79,4 +79,32 @@ To workaround this issue, configure Azure Functions so that the `WorkerExtension
 </PropertyGroup>
 ```
 
+6. Define explicit connection names on all Azure Functions bindings
+
+Currently, there's a requirement that all Azure Functions trigger bindings specify a connection name that aligns with the name of the Aspire resource.
+
+For example, given the following resource configuration for an Azure Storage Queue resource named "queue" and an Azure Storage Blobs resource named "blob":
+
+```csharp
+using Aspire.Hosting.Azure;
+
+var builder = DistributedApplication.CreateBuilder(args);
+
+var storage = builder.AddAzureStorage("storage").RunAsEmulator();
+var queue = storage.AddQueues("queue");
+var blob = storage.AddBlobs("blob");
+
+ builder.AddAzureFunctionsProject<Projects.AzureFunctionsEndToEnd_Functions>("funcapp")
+    .WithExternalHttpEndpoints()
+    .WithReference(queue)
+    .WithReference(blob)
+```
+
+The following trigger bindings must be used for Queue and Blob triggers respectively:
+
+```csharp
+[BlobTrigger("blobs/{name}", Connection = "blob")]
+// ...
+[QueueTrigger("queue", Connection = "queue")] 
+```
  
