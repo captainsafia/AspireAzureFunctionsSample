@@ -2,6 +2,9 @@
 
 This project demonstrates the Aspire and Azure Functions integration.
 
+> [!NOTE]  
+> This repository requires a .NET 9 RC 2 SDK to support its functionality.
+
 ## Running the project
 
 This project requires the .NET 8.0.401 SDK and the Aspire workload.
@@ -51,16 +54,7 @@ To replicate this setup on existing Azure Functions projects, a few modification
 
 Note: OpenTelemetry from the local Functions host is not currently supported.
 
-4. Configure the `RunCommand` properties in the project file of the Functions project to support launching the local Azure Functions host as part of the launch step for the .NET project.
-
-```xml
-<PropertyGroup>
-  <RunCommand>func</RunCommand>
-  <RunArguments>start --csharp</RunArguments>
-</PropertyGroup>
-```
-
-5. The Azure Functions host executes an inner build when `func start` is invoked that facilitates the discovery of triggers and extensions used by the worker and wiring them up to the host. Currently, a bug in the Azure Functions Core Tools makes this inner build fail in scenarios where the Functions project has already been built (see [this issue in the Azure Functions Core Tools repo](https://github.com/Azure/azure-functions-core-tools/issues/3594)).
+4. The Azure Functions host executes an inner build when `func start` is invoked that facilitates the discovery of triggers and extensions used by the worker and wiring them up to the host. Currently, a bug in the Azure Functions Core Tools makes this inner build fail in scenarios where the Functions project has already been built (see [this issue in the Azure Functions Core Tools repo](https://github.com/Azure/azure-functions-core-tools/issues/3594)).
 
 ```
 Can't determine Project to build. Expected 1 .csproj or .fsproj but found 2
@@ -79,7 +73,7 @@ To workaround this issue, configure Azure Functions so that the `WorkerExtension
 </PropertyGroup>
 ```
 
-6. Define explicit connection names on all Azure Functions bindings
+5. Define explicit connection names on all Azure Functions bindings
 
 Currently, there's a requirement that all Azure Functions trigger bindings specify a connection name that aligns with the name of the Aspire resource.
 
