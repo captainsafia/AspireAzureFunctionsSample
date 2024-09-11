@@ -2,9 +2,10 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-var host = new HostBuilder()
-    .AddServiceDefaults()
-    .ConfigureFunctionsWebApplication()
-    .Build();
+var builder = FunctionsWebApplicationBuilder.CreateBuilder();
+
+builder.AddServiceDefaults();
+
+var host = builder.Build();
 
 host.Run();

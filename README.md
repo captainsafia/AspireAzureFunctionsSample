@@ -3,7 +3,7 @@
 This project demonstrates the Aspire and Azure Functions integration.
 
 > [!NOTE]  
-> This repository requires a .NET 9 RC 2 SDK to support its functionality.
+> This repository requires a .NET 9 RC 2 SDK to support its functionality. It also requires 2.0.0-preview1 builds of the `Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore` and `Microsoft.Azure.Functions.Worker.Sdk` packages.
 
 ## Running the project
 
@@ -50,11 +50,7 @@ To replicate this setup on existing Azure Functions projects, a few modification
 }
 ```
 
-3. The Azure Functions .NET APIs do not currently support the `IHostApplicationBuilder` interface that Aspire's APIs depend on. For the case of ServiceDefaults APIs, it's necessary to define `IHostBuilder`-based implementations of these APIs as seen in [this file](./AzureFunctionsTest//AzureFunctionsTest.ServiceDefaults/HostBuilderExtensions.cs).
-
-Note: OpenTelemetry from the local Functions host is not currently supported.
-
-4. The Azure Functions host executes an inner build when `func start` is invoked that facilitates the discovery of triggers and extensions used by the worker and wiring them up to the host. Currently, a bug in the Azure Functions Core Tools makes this inner build fail in scenarios where the Functions project has already been built (see [this issue in the Azure Functions Core Tools repo](https://github.com/Azure/azure-functions-core-tools/issues/3594)).
+3. The Azure Functions host executes an inner build when `func start` is invoked that facilitates the discovery of triggers and extensions used by the worker and wiring them up to the host. Currently, a bug in the Azure Functions Core Tools makes this inner build fail in scenarios where the Functions project has already been built (see [this issue in the Azure Functions Core Tools repo](https://github.com/Azure/azure-functions-core-tools/issues/3594)).
 
 ```
 Can't determine Project to build. Expected 1 .csproj or .fsproj but found 2
@@ -73,7 +69,7 @@ To workaround this issue, configure Azure Functions so that the `WorkerExtension
 </PropertyGroup>
 ```
 
-5. Define explicit connection names on all Azure Functions bindings
+4. Define explicit connection names on all Azure Functions bindings
 
 Currently, there's a requirement that all Azure Functions trigger bindings specify a connection name that aligns with the name of the Aspire resource.
 
