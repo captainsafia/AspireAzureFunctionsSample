@@ -40,21 +40,7 @@ To replicate this setup on existing Azure Functions projects, a few modification
 }
 ```
 
-2. Remove the default `--port` configured in the launch profile of the Azure Functions project. The Azure Functions Aspire integrations allocates a port that the Functions host will listen on. Currently, configuring two ports for the Functions host to listen on (one via the Aspire integration and one via the launch profile) is not feasible. To resolve this, remove the default port in the Functions project template and rely on Aspire to allocate it.
-
-```diff
-{
-  "profiles": {
-    "AzureFunctionsTest.Functions": {
-      "commandName": "Project",
--      "commandLineArgs": "--port 7071",
-      "launchBrowser": false
-    }
-  }
-}
-```
-
-3. Define explicit connection names on all Azure Functions bindings
+2. Define explicit connection names on all Azure Functions bindings
 
 Currently, there's a requirement that all Azure Functions trigger bindings specify a connection name that aligns with the name of the Aspire resource.
 
