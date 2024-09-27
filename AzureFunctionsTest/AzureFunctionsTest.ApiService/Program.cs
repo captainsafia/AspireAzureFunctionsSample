@@ -61,8 +61,19 @@ app.MapGet("/publish/asb", async (ServiceBusClient client, CancellationToken can
 
 app.MapGet("/", async (HttpClient client) =>
 {
-    var stream = await client.GetStreamAsync("http://funcapp/api/MyHttpTrigger");
-    return Results.Stream(stream, "application/json");
+    return Results.Content("""
+<html>
+<head>
+    <title>Azure Functions Test</title>
+</head>
+<body>
+<a href="/publish/asq">Publish to Azure Storage Queue</a><br>
+<a href="/publish/blob">Publish to Azure Storage Blobs</a><br>
+<a href="/publish/eventhubs">Publish to Azure EventHubs</a><br>
+<a href="/publish/asb">Publish to Azure Service Bus</a><br>
+</body>
+</html>
+""", "text/html");
 });
 
 app.MapDefaultEndpoints();
