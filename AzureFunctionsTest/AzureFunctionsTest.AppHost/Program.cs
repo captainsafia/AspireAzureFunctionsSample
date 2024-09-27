@@ -1,8 +1,14 @@
 using Aspire.Hosting.Azure;
+using Azure.Provisioning.Storage;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var storage = builder.AddAzureStorage("storage").RunAsEmulator();
+#pragma warning disable AZPROVISION001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+var storage = builder.AddAzureStorage("storage", (builder, construct, storageAccount) =>
+{
+    construct.Add(storageAccount.AssignRole(StorageBuiltInRole.StorageAccountContributor, construct.PrincipalTypeParameter, construct.PrincipalIdParameter));
+}).RunAsEmulator();
+#pragma warning restore AZPROVISION001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 var queue = storage.AddQueues("queue");
 var blob = storage.AddBlobs("blob");
 
@@ -15,6 +21,7 @@ var funcApp = builder.AddAzureFunctionsProject<Projects.AzureFunctionsTest_Funct
     .WithReference(serviceBus)
     .WithReference(blob)
     .WithReference(queue)
+    .WithHostStorage(storage)
     .WithEnvironment(context =>
     {
         // Function's Docker images are configured to listen on privileged port 
