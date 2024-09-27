@@ -14,7 +14,14 @@ var funcApp = builder.AddAzureFunctionsProject<Projects.AzureFunctionsTest_Funct
     .WithReference(eventHubs)
     .WithReference(serviceBus)
     .WithReference(blob)
-    .WithReference(queue);
+    .WithReference(queue)
+    .WithEnvironment(context =>
+    {
+        // Function's Docker images are configured to listen on privileged port 
+        // :80 by default. We override that here using the environment variable
+        // that is respected by the classic WebHostBuilder.
+        context.EnvironmentVariables["ASPNETCORE_URLS"] = "http://+:8080";
+    });
 
 var apiService = builder.AddProject<Projects.AzureFunctionsTest_ApiService>("apiservice")
     .WithReference(funcApp)
