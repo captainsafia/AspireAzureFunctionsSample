@@ -24,6 +24,7 @@ var funcApp = builder.AddAzureFunctionsProject<Projects.AzureFunctionsTest_Funct
     });
 
 var apiService = builder.AddProject<Projects.AzureFunctionsTest_ApiService>("apiservice")
+    .WithExternalHttpEndpoints()
     .WithReference(funcApp)
     .WithReference(eventHubs)
     .WithReference(serviceBus)
