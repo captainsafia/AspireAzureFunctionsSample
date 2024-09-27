@@ -8,7 +8,7 @@ namespace AzureFunctionsTest.Functions;
 public class MyHttpTrigger(ILogger<MyHttpTrigger> logger)
 {
     [Function("MyHttpTrigger")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
+    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
     {
         logger.LogInformation("C# HTTP trigger function processed a request.");
         return new OkObjectResult("Welcome to Azure Functions!");
