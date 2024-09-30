@@ -20,6 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AzureFunctionsTest.Functions\AzureFunctionsTest.Functions.csproj" />
     <ProjectReference Include="..\AzureFunctionsTest.ApiService\AzureFunctionsTest.ApiService.csproj" />
+    <ProjectReference Include="..\AzureFunctionsTest.HttpFunctions\AzureFunctionsTest.HttpFunctions.csproj" />
+    <ProjectReference Include="..\AzureFunctionsTest.StorageFunctions\AzureFunctionsTest.StorageFunctions.csproj" />
   </ItemGroup>
 
 </Project>

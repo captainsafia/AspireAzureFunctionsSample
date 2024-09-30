@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsTest.ApiServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsTest.Functions", "AzureFunctionsTest.Functions\AzureFunctionsTest.Functions.csproj", "{22AB14A0-6A2E-470D-A4F6-2A0D05C2AF37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsTest.HttpFunctions", "AzureFunctionsTest.HttpFunctions\AzureFunctionsTest.HttpFunctions.csproj", "{FB940A1A-1321-4BC4-9873-A58803656815}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctionsTest.StorageFunctions", "AzureFunctionsTest.StorageFunctions\AzureFunctionsTest.StorageFunctions.csproj", "{2C6D3204-A737-4534-A1F4-F6A0206796C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{22AB14A0-6A2E-470D-A4F6-2A0D05C2AF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22AB14A0-6A2E-470D-A4F6-2A0D05C2AF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22AB14A0-6A2E-470D-A4F6-2A0D05C2AF37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB940A1A-1321-4BC4-9873-A58803656815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB940A1A-1321-4BC4-9873-A58803656815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB940A1A-1321-4BC4-9873-A58803656815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB940A1A-1321-4BC4-9873-A58803656815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C6D3204-A737-4534-A1F4-F6A0206796C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C6D3204-A737-4534-A1F4-F6A0206796C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C6D3204-A737-4534-A1F4-F6A0206796C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C6D3204-A737-4534-A1F4-F6A0206796C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
