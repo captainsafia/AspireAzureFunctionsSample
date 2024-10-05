@@ -16,4 +16,4 @@ jobs:
       - name: Build 
         run: dotnet build ./AzureFunctionsTest/AzureFunctionsTest.sln
       - name: Test
-        run: dotnet test ./AzureFunctionsTest/AzureFunctionsTest.sln
+        run: dotnet test ./AzureFunctionsTest/AzureFunctionsTest.sln --no-build
