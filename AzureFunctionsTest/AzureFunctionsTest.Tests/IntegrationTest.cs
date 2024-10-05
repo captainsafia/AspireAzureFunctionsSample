@@ -1,9 +1,9 @@
 namespace AzureFunctionsTests.Tests.Tests;
 
-public class IntegrationTest1
+public class IntegrationTest(ITestOutputHelper testOutputHelper)
 {
     [Fact]
-    public async Task GetWebResourceRootReturnsOkStatusCode()
+    public async Task GetHttpFuncAppHttpTrigger()
     {
         // Arrange
         var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AzureFunctionsTest_AppHost>();
