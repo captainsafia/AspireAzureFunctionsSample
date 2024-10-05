@@ -1,6 +1,6 @@
 namespace AzureFunctionsTests.Tests.Tests;
 
-public class IntegrationTest(ITestOutputHelper testOutputHelper)
+public class IntegrationTest
 {
     [Fact]
     public async Task GetHttpFuncAppHttpTrigger()

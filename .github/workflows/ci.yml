@@ -18,4 +18,10 @@ jobs:
       - name: Build 
         run: dotnet build ./AzureFunctionsTest/AzureFunctionsTest.sln
       - name: Test
-        run: dotnet test ./AzureFunctionsTest/AzureFunctionsTest.sln --no-build
+        run: dotnet test ./AzureFunctionsTest/AzureFunctionsTest.sln --no-build --verbosity normal --logger trx
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ${{ github.workspace }}/**/TestResults/**/*
+          retention-days: 5

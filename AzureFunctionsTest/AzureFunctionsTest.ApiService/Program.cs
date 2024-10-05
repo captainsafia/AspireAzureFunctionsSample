@@ -59,7 +59,7 @@ app.MapGet("/publish/asb", async (ServiceBusClient client, CancellationToken can
     return Results.Ok("Message sent to Azure Service Bus.");
 });
 
-app.MapGet("/", async (HttpClient client) =>
+app.MapGet("/", (HttpClient client) =>
 {
     return Results.Content("""
 <html>
