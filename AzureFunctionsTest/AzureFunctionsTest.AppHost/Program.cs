@@ -19,7 +19,8 @@ builder.AddAzureFunctionsProject<Projects.AzureFunctionsTest_StorageFunctions>("
     .WithReference(blob);
 
 var httpFuncApp = builder.AddAzureFunctionsProject<Projects.AzureFunctionsTest_HttpFunctions>("http-funcapp")
-    .WithExternalHttpEndpoints();
+    .WithExternalHttpEndpoints()
+    .WithHttpHealthCheck("/");
 
 builder.AddProject<Projects.AzureFunctionsTest_ApiService>("apiservice")
     .WithExternalHttpEndpoints()

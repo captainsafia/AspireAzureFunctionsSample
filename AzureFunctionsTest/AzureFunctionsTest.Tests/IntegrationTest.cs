@@ -18,7 +18,7 @@ public class IntegrationTest(ITestOutputHelper testOutputHelper)
 
         // Act
         var httpClient = app.CreateHttpClient("http-funcapp");
-        await resourceNotificationService.WaitForResourceAsync("http-funcapp", KnownResourceStates.Running).WaitAsync(TimeSpan.FromSeconds(30));
+        await resourceNotificationService.WaitForResourceHealthyAsync("http-funcapp").WaitAsync(TimeSpan.FromSeconds(120));
         var response = await httpClient.GetAsync("/api/MyHttpTrigger");
 
         // Assert
