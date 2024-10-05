@@ -26,5 +26,7 @@ public class IntegrationTest
         var expectedOutput = "Welcome to Azure Functions!";
         var actualOutput = await response.Content.ReadAsStringAsync();
         Assert.Equal(expectedOutput, actualOutput);
+
+        await app.StopAsync();
     }
 }
