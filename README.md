@@ -1,5 +1,7 @@
 # Aspire + Azure Functions Integration Sample
 
+[![Azure Functions Sample CI](https://github.com/captainsafia/AspireAzureFunctionsSample/actions/workflows/ci.yml/badge.svg)](https://github.com/captainsafia/AspireAzureFunctionsSample/actions/workflows/ci.yml)
+
 This project demonstrates the Aspire and Azure Functions integration.
 
 > [!NOTE]  

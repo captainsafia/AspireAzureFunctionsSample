@@ -1,0 +1,27 @@
+name: Azure Functions Sample CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:  
+  test:
+    runs-on: ubuntu-latest    
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET (global.json)
+        uses: actions/setup-dotnet@v3
+      - name: Install azure-functions-core-tools
+        run: npm i -g azure-functions-core-tools@4 --unsafe-perm true
+      - name: Build 
+        run: dotnet build ./AzureFunctionsTest/AzureFunctionsTest.sln
+      - name: Test
+        run: dotnet test ./AzureFunctionsTest/AzureFunctionsTest.sln --no-build --verbosity normal --logger trx
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ${{ github.workspace }}/**/TestResults/**/*
+          retention-days: 5

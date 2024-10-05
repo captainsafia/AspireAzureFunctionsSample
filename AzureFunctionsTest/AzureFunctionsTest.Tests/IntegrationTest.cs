@@ -1,9 +1,9 @@
 namespace AzureFunctionsTests.Tests.Tests;
 
-public class IntegrationTest1
+public class IntegrationTest
 {
     [Fact]
-    public async Task GetWebResourceRootReturnsOkStatusCode()
+    public async Task GetHttpFuncAppHttpTrigger()
     {
         // Arrange
         var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.AzureFunctionsTest_AppHost>();
@@ -18,7 +18,7 @@ public class IntegrationTest1
 
         // Act
         var httpClient = app.CreateHttpClient("http-funcapp");
-        await resourceNotificationService.WaitForResourceAsync("http-funcapp", KnownResourceStates.Running).WaitAsync(TimeSpan.FromSeconds(30));
+        await resourceNotificationService.WaitForResourceHealthyAsync("http-funcapp").WaitAsync(TimeSpan.FromSeconds(120));
         var response = await httpClient.GetAsync("/api/MyHttpTrigger");
 
         // Assert
@@ -26,5 +26,7 @@ public class IntegrationTest1
         var expectedOutput = "Welcome to Azure Functions!";
         var actualOutput = await response.Content.ReadAsStringAsync();
         Assert.Equal(expectedOutput, actualOutput);
+
+        await app.StopAsync();
     }
 }
