@@ -5,6 +5,8 @@ using Microsoft.Azure.Functions.Worker.Builder;
 
 var builder = FunctionsApplication.CreateBuilder(args);
 
+builder.AddAzureCosmosClient("cosmos-db");
+
 builder.AddServiceDefaults();
 
 var host = builder.Build();

@@ -10,6 +10,9 @@ var blob = storage.AddBlobs("blob");
 var eventHubs = builder.AddAzureEventHubs("eventhubs").RunAsEmulator().AddEventHub("myhub");
 var serviceBus = builder.AddAzureServiceBus("messaging").AddQueue("myqueue");
 
+var cosmos = builder.AddAzureCosmosDB("cosmos-db");
+var cosmosdb = cosmos.AddDatabase("test-db");
+
 builder.AddAzureFunctionsProject<Projects.AzureFunctionsTest_Functions>("funcapp")
     .WithReference(eventHubs)
     .WithReference(serviceBus);
@@ -19,6 +22,7 @@ builder.AddAzureFunctionsProject<Projects.AzureFunctionsTest_StorageFunctions>("
     .WithReference(blob);
 
 var httpFuncApp = builder.AddAzureFunctionsProject<Projects.AzureFunctionsTest_HttpFunctions>("http-funcapp")
+    .WithReference(cosmosdb)
     .WithExternalHttpEndpoints()
     .WithHttpHealthCheck("/");
 
